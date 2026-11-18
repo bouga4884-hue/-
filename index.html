@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>التسجيلات الرسمية - أكاديمية وادي الأبطال لكرة القدم</title>
+    <title>منصة إدارة التسجيلات - أكاديمية وادي الأبطال لكرة القدم</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -20,92 +20,200 @@
             font-family: 'Cairo', sans-serif;
         }
         body {
-            background-color: var(--bg-color);
+            background-color: var(--primary-color);
             color: var(--text-color);
             line-height: 1.6;
-            padding: 20px;
+            padding: 12px;
         }
         .container {
-            max-width: 650px;
+            max-width: 500px;
             margin: 0 auto;
             background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
             overflow: hidden;
-            border-top: 5px solid var(--accent-color);
+            margin-bottom: 20px;
         }
-        .header {
+        .platform-header {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             text-align: center;
-            padding: 30px 20px;
+            padding: 22px 15px;
+            border-bottom: 4px solid var(--accent-color);
         }
-        .header h1 {
-            font-size: 22px;
-            margin-bottom: 5px;
+        .club-badge {
+            width: 65px;
+            height: 65px;
+            background: #ffffff;
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 28px;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .platform-header h2 {
+            font-size: 18px;
+            margin-bottom: 4px;
             font-weight: 900;
         }
-        .header p {
-            font-size: 14px;
-            color: #dcdcdc;
+        .platform-header p {
+            font-size: 13px;
+            color: #e0e0e0;
+        }
+        /* شريط المراحل التفاعلي */
+        .steps-bar {
+            display: flex;
+            justify-content: space-between;
+            background: #e8f5e9;
+            padding: 14px 8px;
+            overflow-x: auto;
+            border-bottom: 1px solid #d5e5d8;
+        }
+        .step-item {
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            flex: 1;
+            min-width: 55px;
+            font-weight: 700;
+            position: relative;
+        }
+        .step-item.active {
+            color: var(--primary-color);
+            font-weight: 900;
+        }
+        .step-circle {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #cccccc;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .step-item.active .step-circle {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            box-shadow: 0 2px 6px rgba(212, 175, 55, 0.5);
+        }
+        /* لوحة إحصائيات مصغرة */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 14px;
+            background: #f9fbf9;
+            border-bottom: 1px solid #eee;
+        }
+        .stat-card {
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e1e8e5;
+        }
+        .stat-card h4 {
+            font-size: 11px;
+            color: #666;
+        }
+        .stat-card p {
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-top: 3px;
         }
         .form-container {
-            padding: 25px;
+            padding: 20px;
+        }
+        .section-title {
+            font-size: 15px;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
         label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--primary-color);
-            font-size: 15px;
+            margin-bottom: 6px;
+            font-weight: 700;
+            color: #222;
+            font-size: 13px;
         }
-        input[type="text"],
-        input[type="date"],
-        input[type="tel"],
-        select,
-        input[type="file"] {
+        input, select {
             width: 100%;
-            padding: 12px;
+            padding: 11px;
             border: 1px solid #ccc;
             border-radius: 8px;
             font-size: 14px;
             background: #fafafa;
+            transition: border 0.3s;
         }
         input:focus, select:focus {
             border-color: var(--primary-color);
-            outline: none;
             background: #fff;
+            outline: none;
         }
         .note {
-            font-size: 12px;
+            font-size: 11px;
             color: #c0392b;
-            margin-top: 5px;
-            font-weight: 600;
+            margin-top: 4px;
+            font-weight: 700;
         }
         .submit-btn {
-            background: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
             width: 100%;
             padding: 14px;
-            font-size: 16px;
-            font-weight: 700;
-            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 800;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background 0.3s;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(11, 70, 25, 0.3);
         }
         .submit-btn:hover {
-            background: var(--secondary-color);
+            opacity: 0.95;
+        }
+        /* رسالة التأكيد التفاعلية */
+        .success-box {
+            display: none;
+            text-align: center;
+            padding: 25px 15px;
+            background: #e8f5e9;
+            border-radius: 12px;
+            border: 2px solid var(--primary-color);
+            margin-top: 15px;
+        }
+        .success-box h3 {
+            color: var(--primary-color);
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .success-box p {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 12px;
         }
         .footer-info {
             text-align: center;
-            padding: 15px;
+            padding: 16px;
             background: #f1f3f2;
-            font-size: 13px;
-            color: #555;
+            font-size: 12px;
+            color: #444;
             border-top: 1px solid #e1e8e5;
         }
     </style>
@@ -113,29 +221,68 @@
 <body>
 
 <div class="container">
-    <div class="header">
-        <h1>النادي الرياضي الهاوي لأكاديمية وادي الأبطال لكرة القدم</h1>
-        <p>استمارة تسجيل اللاعبين الجدد للموسم الرياضي</p>
+    <div class="platform-header">
+        <div class="club-badge">⚽</div>
+        <h2>النادي الرياضي الهاوي لأكاديمية وادي الأبطال لكرة القدم</h2>
+        <p>منصة إدارة التسجيلات والمنخرطين - موسم 2026/2027</p>
+    </div>
+
+    <!-- شريط المراحل التفاعلي -->
+    <div class="steps-bar">
+        <div class="step-item active" id="step1">
+            <div class="step-circle">1</div>
+            الاستمارة
+        </div>
+        <div class="step-item" id="step2">
+            <div class="step-circle">2</div>
+            القبول
+        </div>
+        <div class="step-item" id="step3">
+            <div class="step-circle">3</div>
+            الدفعة
+        </div>
+        <div class="step-item" id="step4">
+            <div class="step-circle">4</div>
+            البطاقة
+        </div>
+        <div class="step-item" id="step5">
+            <div class="step-circle">5</div>
+            الولي
+        </div>
+        <div class="step-item" id="step6">
+            <div class="step-circle">6</div>
+            المسح
+        </div>
+    </div>
+
+    <!-- لوحة إحصائيات مصغرة -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h4>الفئات المفتوحة</h4>
+            <p>U10 & U13</p>
+        </div>
+        <div class="stat-card">
+            <h4>حالة التسجيلات</h4>
+            <p style="color: #27ae60; font-size: 13px;">🟢 مفتوحة الآن</p>
+        </div>
     </div>
 
     <div class="form-container">
-        <form action="#" method="POST" enctype="multipart/form-data">
-            
-            <!-- الفئة المراد الانضمام إليها -->
+        <div class="section-title">المرحلة 1: ملء استمارة الانخراط</div>
+        
+        <form id="regForm" onsubmit="handleRegistration(event)">
             <div class="form-group">
                 <label for="category">الفئة المراد الانضمام إليها:</label>
                 <select id="category" name="category" required>
                     <option value="">-- اختر الفئة الرياضية --</option>
                     <option value="U10">فئة U10 (أقل من 10 سنوات)</option>
                     <option value="U13">فئة U13 (أقل من 13 سنة)</option>
-                    <option value="other">فئة أخرى</option>
                 </select>
             </div>
 
-            <!-- معلومات اللاعب -->
             <div class="form-group">
                 <label for="player_name">الاسم واللقب (لللاعب):</label>
-                <input type="text" id="player_name" name="player_name" placeholder="أدخل اسم ولقب اللاعب" required>
+                <input type="text" id="player_name" name="player_name" placeholder="أدخل اسم ولقب اللاعب الكامل" required>
             </div>
 
             <div class="form-group">
@@ -143,20 +290,16 @@
                 <input type="date" id="birth_date" name="birth_date" required>
             </div>
 
-            <!-- معلومات ولي الأمر -->
-            <div class="fileds-section">
-                <div class="form-group">
-                    <label for="parent_name">اسم ولقب ولي الأمر:</label>
-                    <input type="text" id="parent_name" name="parent_name" placeholder="أدخل اسم ولقب ولي الأمر" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone">رقم هاتف ولي الأمر:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="مثال: 0696839184" required>
-                </div>
+            <div class="form-group">
+                <label for="parent_name">اسم ولقب ولي الأمر:</label>
+                <input type="text" id="parent_name" name="parent_name" placeholder="أدخل اسم ولقب ولي الأمر" required>
             </div>
 
-            <!-- الوثائق المطلوبة -->
+            <div class="form-group">
+                <label for="phone">رقم هاتف ولي الأمر:</label>
+                <input type="tel" id="phone" name="phone" placeholder="مثال: 0696839184" required>
+            </div>
+
             <div class="form-group">
                 <label for="player_form">استمارة اللاعب:</label>
                 <input type="file" id="player_form" name="player_form" accept=".pdf,image/*" required>
@@ -172,20 +315,41 @@
             <div class="form-group">
                 <label for="id_card">بطاقة التعريف الوطنية لولي الأمر:</label>
                 <input type="file" id="id_card" name="id_card" accept=".pdf,image/*" required>
-                <div class="note">⚠️ ملاحظة هامة: يجب أن يُكتب رقم 18 بخط اليد على نسخة البطاقة المرفقة.</div>
+                <div class="note">⚠️ هام: يجب كتابة رقم 18 بخط اليد على النسخة المرفقة.</div>
             </div>
 
-            <button type="submit" class="submit-btn">إرسال طلب التسجيل</button>
+            <button type="submit" class="submit-btn">إرسال الطلب والانتقال لمرحلة القبول ➔</button>
         </form>
+
+        <!-- رسالة الانتقال للمرحلة الثانية بعد الإرسال -->
+        <div class="success-box" id="successBox">
+            <h3>✅ تم استلام استمارتك بنجاح!</h3>
+            <p id="confirmText"></p>
+            <p style="font-weight: bold; color: #0b4619;">طلبك الآن في (المرحلة 2: مراجعة وقبول الإدارة). سيتم التواصل معكم قريباً لتأكيد الانخراط وإصدار بطاقة اللاعب.</p>
+        </div>
     </div>
 
     <div class="footer-info">
         <p><strong>النادي الرياضي الهاوي لأكاديمية وادي الأبطال لكرة القدم</strong></p>
-        <p>للاستفسار والتواصل مع الإدارة والطاقم التدريبي:</p>
-        <p>المدرب قدور هشام: <strong>0664079332</strong> | المدرب بوقارش أبوبكر: <strong>0696839184</strong></p>
+        <p style="margin-top: 4px;">المدرب بوقارش أبوبكر: <strong>0696839184</strong> | المدرب قدور هشام: <strong>0664079332</strong></p>
     </div>
 </div>
 
+<script>
+    function handleRegistration(event) {
+        event.preventDefault();
+        const playerName = document.getElementById('player_name').value;
+        const category = document.getElementById('category').value;
+        
+        // تفعيل المرحلة الثانية في الشريط العلوي
+        document.getElementById('step2').classList.add('active');
+        
+        // إخفاء النموذج وإظهار رسالة تأكيد الانتقال للمرحلة الثانية
+        document.getElementById('regForm').style.display = 'none';
+        document.getElementById('confirmText').innerText = `اللاعب: ${playerName} | الفئة: ${category}`;
+        document.getElementById('successBox').style.display = 'block';
+    }
+</script>
+
 </body>
-                      </html>
-                      
+</html>
