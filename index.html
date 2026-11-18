@@ -80,7 +80,6 @@
             flex: 1;
             min-width: 55px;
             font-weight: 700;
-            position: relative;
         }
         .step-item.active {
             color: var(--primary-color);
@@ -125,7 +124,7 @@
             color: #666;
         }
         .stat-card p {
-            font-size: 15px;
+            font-size: 13px;
             font-weight: 900;
             color: var(--primary-color);
             margin-top: 3px;
@@ -159,7 +158,6 @@
             border-radius: 8px;
             font-size: 14px;
             background: #fafafa;
-            transition: border 0.3s;
         }
         input:focus, select:focus {
             border-color: var(--primary-color);
@@ -185,10 +183,6 @@
             margin-top: 10px;
             box-shadow: 0 4px 12px rgba(11, 70, 25, 0.3);
         }
-        .submit-btn:hover {
-            opacity: 0.95;
-        }
-        /* رسالة التأكيد التفاعلية */
         .success-box {
             display: none;
             text-align: center;
@@ -215,6 +209,12 @@
             font-size: 12px;
             color: #444;
             border-top: 1px solid #e1e8e5;
+        }
+        .coach-contact {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #0b4619;
+            font-weight: 700;
         }
     </style>
 </head>
@@ -259,11 +259,11 @@
     <div class="stats-grid">
         <div class="stat-card">
             <h4>الفئات المفتوحة</h4>
-            <p>U10 & U13</p>
+            <p>U8, U10, U13, U15</p>
         </div>
         <div class="stat-card">
             <h4>حالة التسجيلات</h4>
-            <p style="color: #27ae60; font-size: 13px;">🟢 مفتوحة الآن</p>
+            <p style="color: #27ae60;">🟢 مفتوحة الآن</p>
         </div>
     </div>
 
@@ -274,9 +274,11 @@
             <div class="form-group">
                 <label for="category">الفئة المراد الانضمام إليها:</label>
                 <select id="category" name="category" required>
-                    <option value="">-- اختر الفئة الرياضية --</option>
+                    <option value="">-- اختر الفئة الرياضية بالترتيب --</option>
+                    <option value="U8">فئة U8 (أقل من 8 سنوات)</option>
                     <option value="U10">فئة U10 (أقل من 10 سنوات)</option>
                     <option value="U13">فئة U13 (أقل من 13 سنة)</option>
+                    <option value="U15">فئة U15 (أقل من 15 سنة)</option>
                 </select>
             </div>
 
@@ -321,7 +323,6 @@
             <button type="submit" class="submit-btn">إرسال الطلب والانتقال لمرحلة القبول ➔</button>
         </form>
 
-        <!-- رسالة الانتقال للمرحلة الثانية بعد الإرسال -->
         <div class="success-box" id="successBox">
             <h3>✅ تم استلام استمارتك بنجاح!</h3>
             <p id="confirmText"></p>
@@ -331,7 +332,8 @@
 
     <div class="footer-info">
         <p><strong>النادي الرياضي الهاوي لأكاديمية وادي الأبطال لكرة القدم</strong></p>
-        <p style="margin-top: 4px;">المدرب بوقارش أبوبكر: <strong>0696839184</strong> | المدرب قدور هشام: <strong>0664079332</strong></p>
+        <div class="coach-contact">المدرب قدور هشام: <strong>0664079332</strong></div>
+        <div class="coach-contact">المدرب بوقارش أبوبكر: <strong>0696839184</strong></div>
     </div>
 </div>
 
@@ -341,10 +343,7 @@
         const playerName = document.getElementById('player_name').value;
         const category = document.getElementById('category').value;
         
-        // تفعيل المرحلة الثانية في الشريط العلوي
         document.getElementById('step2').classList.add('active');
-        
-        // إخفاء النموذج وإظهار رسالة تأكيد الانتقال للمرحلة الثانية
         document.getElementById('regForm').style.display = 'none';
         document.getElementById('confirmText').innerText = `اللاعب: ${playerName} | الفئة: ${category}`;
         document.getElementById('successBox').style.display = 'block';
