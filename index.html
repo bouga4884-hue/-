@@ -42,18 +42,17 @@
             border-bottom: 4px solid var(--accent-color);
         }
         .club-badge {
-            width: 65px;
-            height: 65px;
+            width: 75px;
+            height: 75px;
             background: #ffffff;
-            color: var(--primary-color);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 10px;
-            font-size: 28px;
             border: 3px solid var(--accent-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 32px;
         }
         .platform-header h2 {
             font-size: 18px;
@@ -222,7 +221,7 @@
 
 <div class="container">
     <div class="platform-header">
-        <div class="club-badge">⚽</div>
+        <div class="club-badge">🦁</div>
         <h2>النادي الرياضي الهاوي لأكاديمية وادي الأبطال لكرة القدم</h2>
         <p>منصة إدارة التسجيلات والمنخرطين - موسم 2026/2027</p>
     </div>
@@ -277,78 +276,4 @@
                     <option value="">-- اختر الفئة الرياضية بالترتيب --</option>
                     <option value="U8">فئة U8 (أقل من 8 سنوات)</option>
                     <option value="U10">فئة U10 (أقل من 10 سنوات)</option>
-                    <option value="U13">فئة U13 (أقل من 13 سنة)</option>
-                    <option value="U15">فئة U15 (أقل من 15 سنة)</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="player_name">الاسم واللقب (لللاعب):</label>
-                <input type="text" id="player_name" name="player_name" placeholder="أدخل اسم ولقب اللاعب الكامل" required>
-            </div>
-
-            <div class="form-group">
-                <label for="birth_date">تاريخ الازدياد:</label>
-                <input type="date" id="birth_date" name="birth_date" required>
-            </div>
-
-            <div class="form-group">
-                <label for="parent_name">اسم ولقب ولي الأمر:</label>
-                <input type="text" id="parent_name" name="parent_name" placeholder="أدخل اسم ولقب ولي الأمر" required>
-            </div>
-
-            <div class="form-group">
-                <label for="phone">رقم هاتف ولي الأمر:</label>
-                <input type="tel" id="phone" name="phone" placeholder="مثال: 0696839184" required>
-            </div>
-
-            <div class="form-group">
-                <label for="player_form">استمارة اللاعب:</label>
-                <input type="file" id="player_form" name="player_form" accept=".pdf,image/*" required>
-                <div class="note">⚠️ يجب أن تكون ممضاة ومختومة من البلدية.</div>
-            </div>
-
-            <div class="form-group">
-                <label for="parent_form">استمارة ولي الأمر:</label>
-                <input type="file" id="parent_form" name="parent_form" accept=".pdf,image/*" required>
-                <div class="note">⚠️ يجب أن تكون ممضاة ومختومة من البلدية.</div>
-            </div>
-
-            <div class="form-group">
-                <label for="id_card">بطاقة التعريف الوطنية لولي الأمر:</label>
-                <input type="file" id="id_card" name="id_card" accept=".pdf,image/*" required>
-                <div class="note">⚠️ هام: يجب كتابة رقم 18 بخط اليد على النسخة المرفقة.</div>
-            </div>
-
-            <button type="submit" class="submit-btn">إرسال الطلب والانتقال لمرحلة القبول ➔</button>
-        </form>
-
-        <div class="success-box" id="successBox">
-            <h3>✅ تم استلام استمارتك بنجاح!</h3>
-            <p id="confirmText"></p>
-            <p style="font-weight: bold; color: #0b4619;">طلبك الآن في (المرحلة 2: مراجعة وقبول الإدارة). سيتم التواصل معكم قريباً لتأكيد الانخراط وإصدار بطاقة اللاعب.</p>
-        </div>
-    </div>
-
-    <div class="footer-info">
-        <p><strong>النادي الرياضي الهاوي لأكاديمية وادي الأبطال لكرة القدم</strong></p>
-        <div class="coach-contact">المدرب قدور هشام: <strong>0664079332</strong></div>
-        <div class="coach-contact">المدرب بوقارش أبوبكر: <strong>0696839184</strong></div>
-    </div>
-</div>
-
-<script>
-    function handleRegistration(event) {
-        event.preventDefault();
-        const playerName = document.getElementById('player_name').value;
-        const category = document.getElementById('category').value;
-        
-        document.getElementById('step2').classList.add('active');
-        document.getElementById('regForm').style.display = 'none';
-        document.getElementById('confirmText').innerText = `اللاعب: ${playerName} | الفئة: ${category}`;
-        document.getElementById('successBox').style.display = 'block';
-    }
-</script>
-
-</body>
-</html>
+                    <option value="U1
