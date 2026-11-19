@@ -3,68 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>بوابة الإدارة - النادي الرياضي</title>
+  <title>إدارة النادي - اللاعبون والحضور والوثائق</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       font-family: system-ui, -apple-system, sans-serif;
-      background: #f3f4f6;
+      background: #f1f5f9;
       margin: 0;
-      padding: 20px;
-      color: #111827;
+      padding: 16px;
+      color: #0f172a;
     }
     .card {
       max-width: 420px;
-      margin: 60px auto;
+      margin: 50px auto;
       background: #ffffff;
       padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
     }
     .dashboard {
-      max-width: 900px;
-      margin: 20px auto;
+      max-width: 980px;
+      margin: 12px auto;
       background: #ffffff;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
       display: none;
     }
+    h2, h3 { margin-top: 0; }
     label {
       display: block;
       margin-bottom: 6px;
       font-weight: 600;
       font-size: 14px;
     }
-    input, select {
+    input, select, textarea {
       width: 100%;
       padding: 10px 12px;
-      margin-bottom: 14px;
-      border: 1px solid #d1d5db;
+      margin-bottom: 12px;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
-      box-sizing: border-box;
-      font-size: 15px;
+      font-size: 14px;
+      font-family: inherit;
     }
     button {
-      padding: 10px 16px;
+      padding: 9px 14px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 14px;
+      font-size: 13px;
     }
     .btn-primary {
       width: 100%;
       background: #0f766e;
       color: #fff;
+      padding: 11px;
+      font-size: 15px;
     }
-    .btn-approve {
-      background: #15803d;
-      color: #fff;
-    }
-    .btn-logout {
-      background: #b91c1c;
-      color: #fff;
-    }
+    .btn-save { background: #0369a1; color: #fff; }
+    .btn-approve { background: #15803d; color: #fff; }
+    .btn-danger { background: #b91c1c; color: #fff; }
     .error {
       color: #b91c1c;
       font-size: 13px;
@@ -75,22 +74,52 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e2e8f0;
       padding-bottom: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       gap: 10px;
       flex-wrap: wrap;
     }
-    .player-row {
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+    .tab-btn.active {
+      background: #0f766e;
+      color: #ffffff;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .grid-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      background: #f8fafc;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      margin-bottom: 18px;
+    }
+    .player-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: #ffffff;
+    }
+    .player-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
+      margin-bottom: 10px;
     }
     .badge {
       padding: 4px 10px;
@@ -100,122 +129,258 @@
       background: #fef3c7;
       color: #92400e;
     }
-    .badge.approved {
+    .badge.ok {
       background: #dcfce7;
       color: #166534;
+    }
+    .inline-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .inline-controls input, .inline-controls select {
+      margin-bottom: 0;
+      width: auto;
+      min-width: 140px;
     }
   </style>
 </head>
 <body>
 
-  <!-- شاشة تسجيل الدخول -->
+  <!-- شاشة الدخول بحساب واحد مشترك -->
   <div id="loginScreen" class="card">
-    <h2 style="margin-top: 0;">دخول الإدارة والمدرب</h2>
-    <p style="color: #4b5563; font-size: 14px;">
-      هذه المساحة مخصصة للمدير والمدرب فقط لحماية بيانات وملفات اللاعبين.
+    <h2>دخول الإدارة والمدرب</h2>
+    <p style="color: #475569; font-size: 14px;">
+      حساب واحد خاص بالمدير والمدرب لحماية بيانات اللاعبين والحضور والوثائق.
     </p>
     <form id="loginForm">
       <label for="username">اسم الحساب</label>
-      <input type="text" id="username" required autocomplete="username" />
-
+      <input type="text" id="username" required autocomplete="oued_club" />
+oued_club
       <label for="password">كلمة المرور</label>
-      <input type="password" id="password" required autocomplete="current-password" />
+      <input type="password" id="password" required autocomplete="Abtal@2026" />
 
       <div id="loginError" class="error"></div>
       <button type="submit" class="btn-primary">تسجيل الدخول</button>
     </form>
   </div>
 
-  <!-- لوحة الإدارة المحمية -->
+  <!-- لوحة التحكم الكاملة -->
   <div id="adminDashboard" class="dashboard">
     <div class="topbar">
       <div>
-        <h2 style="margin: 0;">ملفات اللاعبين والموافقة الإدارية</h2>
-        <small id="currentUserInfo" style="color: #4b5563;"></small>
+        <h2 style="margin-bottom: 4px;">لوحة النادي الرياضي</h2>
+        <small style="color: #475569;">حساب الإدارة والمدرب فقط — البيانات محفوظة محلياً</small>
       </div>
-      <button type="button" id="logoutBtn" class="btn-logout">تسجيل الخروج</button>
+      <button type="button" id="logoutBtn" class="btn-danger">تسجيل الخروج</button>
     </div>
 
-    <div id="playersList"></div>
+    <div class="tabs">
+      <button type="button" class="tab-btn active" data-tab="playersTab">اللاعبون والملفات</button>
+      <button type="button" class="tab-btn" data-tab="attendanceTab">الحضور</button>
+      <button type="button" class="tab-btn" data-tab="ratingsDocsTab">التقييمات والوثائق</button>
+    </div>
+
+    <!-- 1. قسم بيانات اللاعبين والموافقة على الملفات -->
+    <div id="playersTab" class="tab-panel active">
+      <h3>إضافة لاعب جديد</h3>
+      <form id="addPlayerForm" class="grid-form">
+        <div>
+          <label for="playerName">اسم اللاعب</label>
+          <input type="text" id="playerName" required placeholder="مثال: أمين بن علي" />
+        </div>
+        <div>
+          <label for="playerCategory">الفئة</label>
+          <select id="playerCategory">
+            <option value="U10">U10</option>
+            <option value="U13">U13</option>
+            <option value="أخرى">فئة أخرى</option>
+          </select>
+        </div>
+        <div>
+          <label for="playerPhone">هاتف ولي الأمر</label>
+          <input type="text" id="playerPhone" placeholder="05 / 06 / 07..." />
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+          <button type="submit" class="btn-save" style="width: 100%; margin-bottom: 12px;">إضافة اللاعب</button>
+        </div>
+      </form>
+
+      <div id="playersList"></div>
+    </div>
+
+    <!-- 2. قسم الحضور -->
+    <div id="attendanceTab" class="tab-panel">
+      <h3>تسجيل الحضور اليومي</h3>
+      <div id="attendanceList"></div>
+    </div>
+
+    <!-- 3. قسم التقييمات ووثائق اللاعبين -->
+    <div id="ratingsDocsTab" class="tab-panel">
+      <h3>التقييمات ووثائق اللاعبين</h3>
+      <div id="ratingsDocsList"></div>
+    </div>
   </div>
 
   <script>
-    // حسابات تجريبية: غيّر أسماء المستخدمين وكلمات المرور قبل الاستخدام الفعلي
-    const ACCOUNTS = {
-      "director": { pass: "1234", role: "director", label: "المدير" },
-      "coach":    { pass: "0000", role: "coach",    label: "المدرب" }
+    // غيّر اسم المستخدم وكلمة المرور قبل النشر
+    const SHARED_ACCOUNT = {
+      username: "club_admin",
+      password: "change_me_123"
     };
 
-    const STORAGE_KEY_SESSION = "club_admin_session_v1";
-    const STORAGE_KEY_FILES   = "club_player_files_v1";
+    const SESSION_KEY = "club_unified_session_v1";
+    const DATA_KEY    = "club_unified_data_v1";
 
-    const defaultFiles = [
-      { id: 1, name: "ملف لاعب 1 - شهادة طبية ووثائق", status: "pending" },
-      { id: 2, name: "ملف لاعب 2 - استمارة انخراط", status: "pending" }
+    const initialPlayers = [
+      {
+        id: 1,
+        name: "لاعب 1",
+        category: "U10",
+        phone: "",
+        approved: false,
+        attendance: "حاضر",
+        rating: 7,
+        docsNote: "شهادة طبية + استمارة انخراط"
+      }
     ];
 
-    function getFiles() {
-      const saved = localStorage.getItem(STORAGE_KEY_FILES);
-      return saved ? JSON.parse(saved) : defaultFiles;
+    function loadPlayers() {
+      const raw = localStorage.getItem(DATA_KEY);
+      return raw ? JSON.parse(raw) : initialPlayers;
     }
 
-    function saveFiles(files) {
-      localStorage.setItem(STORAGE_KEY_FILES, JSON.stringify(files));
+    function savePlayers(players) {
+      localStorage.setItem(DATA_KEY, JSON.stringify(players));
     }
 
-    function approveFile(id) {
-      const session = JSON.parse(sessionStorage.getItem(STORAGE_KEY_SESSION) || "null");
-      if (!session || session.role !== "director") {
-        alert("الموافقة على الملفات متاحة لحساب المدير فقط.");
+    function approvePlayer(id) {
+      const updated = loadPlayers().map(p => p.id === id ? { ...p, approved: true } : p);
+      savePlayers(updated);
+      renderAll();
+    }
+
+    function deletePlayer(id) {
+      const updated = loadPlayers().filter(p => p.id !== id);
+      savePlayers(updated);
+      renderAll();
+    }
+
+    function updateAttendance(id, status) {
+      const updated = loadPlayers().map(p => p.id === id ? { ...p, attendance: status } : p);
+      savePlayers(updated);
+      renderAttendance();
+    }
+
+    function saveRatingAndDocs(id) {
+      const ratingVal = Number(document.getElementById("rating-" + id).value);
+      const docsVal   = document.getElementById("docs-" + id).value.trim();
+      const updated = loadPlayers().map(p =>
+        p.id === id ? { ...p, rating: ratingVal, docsNote: docsVal } : p
+      );
+      savePlayers(updated);
+      alert("تم حفظ التقييم والوثائق.");
+      renderRatingsAndDocs();
+    }
+
+    function renderPlayers() {
+      const container = document.getElementById("playersList");
+      const players = loadPlayers();
+      container.innerHTML = "";
+
+      if (!players.length) {
+        container.innerHTML = "<p>لا يوجد لاعبين مسجلين بعد.</p>";
         return;
       }
-      const files = getFiles().map(item =>
-        item.id === id ? { ...item, status: "approved" } : item
-      );
-      saveFiles(files);
-      renderDashboard(session);
-    }
 
-    function renderDashboard(session) {
-      document.getElementById("loginScreen").style.display = "none";
-      const dash = document.getElementById("adminDashboard");
-      dash.style.display = "block";
-
-      document.getElementById("currentUserInfo").textContent =
-        "المتصل حالياً: " + session.label + " (" + session.username + ")";
-
-      const listEl = document.getElementById("playersList");
-      const files = getFiles();
-      listEl.innerHTML = "";
-
-      files.forEach(file => {
-        const isApproved = file.status === "approved";
-        const row = document.createElement("div");
-        row.className = "player-row";
-
-        const infoDiv = document.createElement("div");
-        infoDiv.innerHTML =
-          "<strong>" + file.name + "</strong><br>" +
-          "<span class='badge " + (isApproved ? "approved" : "") + "'>" +
-          (isApproved ? "تمت الموافقة" : "بانتظار الموافقة") +
-          "</span>";
-
-        row.appendChild(infoDiv);
-
-        if (session.role === "director" && !isApproved) {
-          const btn = document.createElement("button");
-          btn.className = "btn-approve";
-          btn.textContent = "موافقة على الملف";
-          btn.onclick = () => approveFile(file.id);
-          row.appendChild(btn);
-        }
-
-        listEl.appendChild(row);
+      players.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "player-card";
+        div.innerHTML = `
+          <div class="player-header">
+            <div>
+              <strong>${p.name}</strong> — <span style="color:#475569;">الفئة: ${p.category}</span>
+              ${p.phone ? `<div style="font-size:13px;color:#475569;">الهاتف: ${p.phone}</div>` : ""}
+            </div>
+            <span class="badge ${p.approved ? "ok" : ""}">
+              ${p.approved ? "تمت الموافقة على الملف" : "بانتظار الموافقة"}
+            </span>
+          </div>
+          <div class="inline-controls">
+            ${!p.approved ? `<button type="button" class="btn-approve" onclick="approvePlayer(${p.id})">موافقة على الملف</button>` : ""}
+            <button type="button" class="btn-danger" onclick="deletePlayer(${p.id})">حذف</button>
+          </div>
+        `;
+        container.appendChild(div);
       });
     }
 
+    function renderAttendance() {
+      const container = document.getElementById("attendanceList");
+      const players = loadPlayers();
+      container.innerHTML = "";
+
+      players.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "player-card";
+        div.innerHTML = `
+          <div class="player-header">
+            <strong>${p.name} (${p.category})</strong>
+            <span class="badge ${p.attendance === "حاضر" ? "ok" : ""}">${p.attendance}</span>
+          </div>
+          <div class="inline-controls">
+            <select onchange="updateAttendance(${p.id}, this.value)">
+              <option value="حاضر" ${p.attendance === "حاضر" ? "selected" : ""}>حاضر</option>
+              <option value="غائب" ${p.attendance === "غائب" ? "selected" : ""}>غائب</option>
+              <option value="غائب بعذر" ${p.attendance === "غائب بعذر" ? "selected" : ""}>غائب بعذر</option>
+            </select>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderRatingsAndDocs() {
+      const container = document.getElementById("ratingsDocsList");
+      const players = loadPlayers();
+      container.innerHTML = "";
+
+      players.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "player-card";
+        div.innerHTML = `
+          <div class="player-header">
+            <strong>${p.name} (${p.category})</strong>
+            <span class="badge ok">التقييم: ${p.rating}/10</span>
+          </div>
+          <label for="rating-${p.id}">تقييم الأداء (من 0 إلى 10)</label>
+          <input type="number" id="rating-${p.id}" min="0" max="10" value="${p.rating}" />
+
+          <label for="docs-${p.id}">وثائق اللاعب وملاحظات الملف</label>
+          <input type="text" id="docs-${p.id}" value="${p.docsNote || ""}" placeholder="مثال: شهادة طبية جاهزة، ينقص عقد التأمين" />
+
+          <button type="button" class="btn-save" onclick="saveRatingAndDocs(${p.id})">حفظ التقييم والوثائق</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function renderAll() {
+      renderPlayers();
+      renderAttendance();
+      renderRatingsAndDocs();
+    }
+
+    function showDashboard() {
+      document.getElementById("loginScreen").style.display = "none";
+      document.getElementById("adminDashboard").style.display = "block";
+      renderAll();
+    }
+
     function showLogin() {
-      sessionStorage.removeItem(STORAGE_KEY_SESSION);
+      sessionStorage.removeItem(SESSION_KEY);
       document.getElementById("adminDashboard").style.display = "none";
       document.getElementById("loginScreen").style.display = "block";
       document.getElementById("loginForm").reset();
@@ -226,25 +391,53 @@
       e.preventDefault();
       const u = document.getElementById("username").value.trim();
       const p = document.getElementById("password").value;
-      const errEl = document.getElementById("loginError");
+      const err = document.getElementById("loginError");
 
-      const acc = ACCOUNTS[u];
-      if (!acc || acc.pass !== p) {
-        errEl.textContent = "اسم الحساب أو كلمة المرور غير صحيحة.";
+      if (u !== SHARED_ACCOUNT.username || p !== SHARED_ACCOUNT.password) {
+        err.textContent = "اسم الحساب أو كلمة المرور غير صحيحة.";
         return;
       }
 
-      const session = { username: u, role: acc.role, label: acc.label };
-      sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(session));
-      renderDashboard(session);
+      sessionStorage.setItem(SESSION_KEY, "1");
+      showDashboard();
     });
 
     document.getElementById("logoutBtn").addEventListener("click", showLogin);
 
-    // تحقق تلقائي عند فتح الصفحة
-    const existingSession = JSON.parse(sessionStorage.getItem(STORAGE_KEY_SESSION) || "null");
-    if (existingSession && ACCOUNTS[existingSession.username]) {
-      renderDashboard(existingSession);
+    document.getElementById("addPlayerForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("playerName").value.trim();
+      const category = document.getElementById("playerCategory").value;
+      const phone = document.getElementById("playerPhone").value.trim();
+      if (!name) return;
+
+      const players = loadPlayers();
+      players.push({
+        id: Date.now(),
+        name,
+        category,
+        phone,
+        approved: false,
+        attendance: "حاضر",
+        rating: 7,
+        docsNote: ""
+      });
+      savePlayers(players);
+      this.reset();
+      renderAll();
+    });
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById(btn.dataset.tab).classList.add("active");
+      });
+    });
+
+    if (sessionStorage.getItem(SESSION_KEY) === "1") {
+      showDashboard();
     } else {
       showLogin();
     }
