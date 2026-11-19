@@ -251,3 +251,92 @@
   </script>
 </body>
 </html>
+
+<!-- بداية بوابة حماية الإدارة والمدرب بالشعار -->
+<div id="academyLockOverlay" style="position:fixed; inset:0; z-index:999999; background:linear-gradient(135deg, #062c1e 0%, #0d4a33 100%); display:flex; align-items:center; justify-content:center; padding:20px; font-family:system-ui, -apple-system, sans-serif; direction:rtl;">
+  <div style="background:#0a3826; border:1px solid #d4af37; border-radius:16px; padding:24px 20px; width:100%; max-width:390px; box-shadow:0 12px 32px rgba(0,0,0,0.45); color:#ffffff; text-align:center;">
+    <img src="./file_00000000cd8861f40416902024cc0c95.png"
+         alt="شعار الأكاديمية"
+         style="width:88px; height:88px; object-fit:contain; border-radius:12px; border:1px solid #d4af37; background:#062c1e; padding:4px; margin:0 auto 10px; display:block;" />
+
+    <div style="display:inline-block; background:#d4af37; color:#062c1e; font-weight:800; font-size:12px; padding:4px 12px; border-radius:999px; margin-bottom:8px;">
+      مساحة الإدارة والمدرب فقط
+    </div>
+
+    <h2 style="margin:0 0 6px; font-size:19px; color:#facc15;">أكاديمية وادي الأبطال لكرة القدم</h2>
+    <p style="margin:0 0 16px; font-size:13px; color:#d1fae5; line-height:1.6;">
+      التربية والانضباط قبل الرياضة — أدخل اسم الحساب وكلمة السر للوصول إلى ملفات اللاعبين.
+    </p>
+
+    <form id="academyLockForm" style="text-align:right;">
+      <label for="academyUser" style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#fef08a;">اسم الحساب</label>
+      <input type="text" id="academyUser" required autocomplete="username"
+             style="width:100%; padding:11px 12px; margin-bottom:12px; border-radius:10px; border:1px solid #1e6b4d; background:#052217; color:#ffffff; font-size:15px; box-sizing:border-box;" />
+
+      <label for="academyPass" style="display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:#fef08a;">كلمة السر</label>
+      <input type="password" id="academyPass" required autocomplete="current-password"
+             style="width:100%; padding:11px 12px; margin-bottom:10px; border-radius:10px; border:1px solid #1e6b4d; background:#052217; color:#ffffff; font-size:15px; box-sizing:border-box;" />
+
+      <div id="academyLockErr" style="color:#fca5a5; font-size:13px; min-height:18px; margin-bottom:10px;"></div>
+
+      <button type="submit" style="width:100%; padding:12px; border:none; border-radius:10px; background:#facc15; color:#062c1e; font-weight:800; font-size:15px; cursor:pointer;">
+        دخول المنصة
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- زر عائم لتسجيل الخروج وقفل المنصة -->
+<button type="button" id="academyLockOutBtn"
+        style="display:none; position:fixed; bottom:16px; left:16px; z-index:999998; background:#b91c1c; color:#ffffff; border:none; border-radius:999px; padding:10px 16px; font-size:13px; font-weight:700; box-shadow:0 4px 12px rgba(0,0,0,0.3); cursor:pointer; font-family:system-ui, sans-serif;">
+  قفل / خروج
+</button>
+
+<script>
+  (function () {
+    // غيّر اسم الحساب وكلمة السر إلى البيانات التي تريدها
+    const ACADEMY_AUTH = {
+      username: "admin_abtal",
+      password: "2026_password"
+    };
+
+    const KEY = "academy_abtal_unlocked_v1";
+    const overlay = document.getElementById("academyLockOverlay");
+    const outBtn  = document.getElementById("academyLockOutBtn");
+    const form    = document.getElementById("academyLockForm");
+    const errBox  = document.getElementById("academyLockErr");
+
+    function unlockPlatform() {
+      overlay.style.display = "none";
+      outBtn.style.display  = "block";
+    }
+
+    function lockPlatform() {
+      sessionStorage.removeItem(KEY);
+      form.reset();
+      errBox.textContent = "";
+      outBtn.style.display  = "none";
+      overlay.style.display = "flex";
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const u = document.getElementById("academyUser").value.trim();
+      const p = document.getElementById("academyPass").value;
+
+      if (u === ACADEMY_AUTH.username && p === ACADEMY_AUTH.password) {
+        sessionStorage.setItem(KEY, "1");
+        unlockPlatform();
+      } else {
+        errBox.textContent = "اسم الحساب أو كلمة السر غير صحيحة.";
+      }
+    });
+
+    outBtn.addEventListener("click", lockPlatform);
+
+    if (sessionStorage.getItem(KEY) === "1") {
+      unlockPlatform();
+    }
+  })();
+</script>
+<!-- نهاية بوابة حماية الإدارة والمدرب -->
