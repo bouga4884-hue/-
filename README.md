@@ -1,2 +1,253 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بوابة الإدارة - النادي الرياضي</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+      color: #111827;
+    }
+    .card {
+      max-width: 420px;
+      margin: 60px auto;
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+    .dashboard {
+      max-width: 900px;
+      margin: 20px auto;
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      display: none;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 15px;
+    }
+    button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .btn-primary {
+      width: 100%;
+      background: #0f766e;
+      color: #fff;
+    }
+    .btn-approve {
+      background: #15803d;
+      color: #fff;
+    }
+    .btn-logout {
+      background: #b91c1c;
+      color: #fff;
+    }
+    .error {
+      color: #b91c1c;
+      font-size: 13px;
+      margin-bottom: 10px;
+      min-height: 18px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 14px;
+      margin-bottom: 20px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .player-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .badge.approved {
+      background: #dcfce7;
+      color: #166534;
+    }
+  </style>
+</head>
+<body>
 
-<title>منصة إدارة التسجيلات - أكاديمية وادي الأبطال لكرة القدم</title> <style> :root { --primary-color: #0b4619; --secondary-color: #145a32; --accent-color: #d4af37; --bg-color: #f4f6f5; --text-color: #333333; } * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; } body { background-color: var(--primary-color); color: var(--text-color); line-height: 1.6; padding: 10px; } .container { max-width: 480px; margin: 0 auto; background: #ffffff; border-radius: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); overflow: hidden; margin-bottom: 20px; } .platform-header { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; text-align: center; padding: 20px; border-bottom: 4px solid var(--accent-color); } .platform-header h2 { font-size: 18px; margin-bottom: 5px; font-weight: 900; } .platform-header p { font-size: 13px; color: #dcdcdc; } /* شريط المراحل التفاعلي */ .steps-bar { display: flex; justify-content: space-between; background: #e8f5e9; padding: 12px 10px; overflow-x: auto; border-bottom: 1px solid #ddd; } .step-item { text-align: center; font-size: 11px; color: #555; flex: 1; min-width: 60px; font-weight: 600; } .step-item.active { color: var(--primary-color); font-weight: 900; } .step-circle { width: 24px; height: 24px; border-radius: 50%; background: #ccc; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 12px; } .step-item.active .step-circle { background: var(--accent-color); color: #0b4619; } .form-container { padding: 20px; } .form-group { margin-bottom: 15px; } label { display: block; margin-bottom: 6px; font-weight: 600; color: var(--primary-color); font-size: 14px; } input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; background: #fafafa; } .note { font-size: 11px; color: #c0392b; margin-top: 3px; font-weight: 600; } .submit-btn { background: var(--primary-color); color: white; border: none; width: 100%; padding: 12px; font-size: 15px; font-weight: 700; border-radius: 8px; cursor: pointer; margin-top: 10px; } .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; background: #f9f9f9; } .stat-card { background: white; padding: 12px; border-radius: 8px; text-align: center; border: 1px solid #e1e8e5; } .stat-card h4 { font-size: 12px; color: #666; } .stat-card p { font-size: 18px; font-weight: 900; color: var(--primary-color); margin-top: 5px; } .footer-info { text-align: center; padding: 15px; background: #f1f3f2; font-size: 12px; color: #555; border-top: 1px solid #e1e8e5; } </style>
+  <!-- شاشة تسجيل الدخول -->
+  <div id="loginScreen" class="card">
+    <h2 style="margin-top: 0;">دخول الإدارة والمدرب</h2>
+    <p style="color: #4b5563; font-size: 14px;">
+      هذه المساحة مخصصة للمدير والمدرب فقط لحماية بيانات وملفات اللاعبين.
+    </p>
+    <form id="loginForm">
+      <label for="username">اسم الحساب</label>
+      <input type="text" id="username" required autocomplete="username" />
+
+      <label for="password">كلمة المرور</label>
+      <input type="password" id="password" required autocomplete="current-password" />
+
+      <div id="loginError" class="error"></div>
+      <button type="submit" class="btn-primary">تسجيل الدخول</button>
+    </form>
+  </div>
+
+  <!-- لوحة الإدارة المحمية -->
+  <div id="adminDashboard" class="dashboard">
+    <div class="topbar">
+      <div>
+        <h2 style="margin: 0;">ملفات اللاعبين والموافقة الإدارية</h2>
+        <small id="currentUserInfo" style="color: #4b5563;"></small>
+      </div>
+      <button type="button" id="logoutBtn" class="btn-logout">تسجيل الخروج</button>
+    </div>
+
+    <div id="playersList"></div>
+  </div>
+
+  <script>
+    // حسابات تجريبية: غيّر أسماء المستخدمين وكلمات المرور قبل الاستخدام الفعلي
+    const ACCOUNTS = {
+      "director": { pass: "1234", role: "director", label: "المدير" },
+      "coach":    { pass: "0000", role: "coach",    label: "المدرب" }
+    };
+
+    const STORAGE_KEY_SESSION = "club_admin_session_v1";
+    const STORAGE_KEY_FILES   = "club_player_files_v1";
+
+    const defaultFiles = [
+      { id: 1, name: "ملف لاعب 1 - شهادة طبية ووثائق", status: "pending" },
+      { id: 2, name: "ملف لاعب 2 - استمارة انخراط", status: "pending" }
+    ];
+
+    function getFiles() {
+      const saved = localStorage.getItem(STORAGE_KEY_FILES);
+      return saved ? JSON.parse(saved) : defaultFiles;
+    }
+
+    function saveFiles(files) {
+      localStorage.setItem(STORAGE_KEY_FILES, JSON.stringify(files));
+    }
+
+    function approveFile(id) {
+      const session = JSON.parse(sessionStorage.getItem(STORAGE_KEY_SESSION) || "null");
+      if (!session || session.role !== "director") {
+        alert("الموافقة على الملفات متاحة لحساب المدير فقط.");
+        return;
+      }
+      const files = getFiles().map(item =>
+        item.id === id ? { ...item, status: "approved" } : item
+      );
+      saveFiles(files);
+      renderDashboard(session);
+    }
+
+    function renderDashboard(session) {
+      document.getElementById("loginScreen").style.display = "none";
+      const dash = document.getElementById("adminDashboard");
+      dash.style.display = "block";
+
+      document.getElementById("currentUserInfo").textContent =
+        "المتصل حالياً: " + session.label + " (" + session.username + ")";
+
+      const listEl = document.getElementById("playersList");
+      const files = getFiles();
+      listEl.innerHTML = "";
+
+      files.forEach(file => {
+        const isApproved = file.status === "approved";
+        const row = document.createElement("div");
+        row.className = "player-row";
+
+        const infoDiv = document.createElement("div");
+        infoDiv.innerHTML =
+          "<strong>" + file.name + "</strong><br>" +
+          "<span class='badge " + (isApproved ? "approved" : "") + "'>" +
+          (isApproved ? "تمت الموافقة" : "بانتظار الموافقة") +
+          "</span>";
+
+        row.appendChild(infoDiv);
+
+        if (session.role === "director" && !isApproved) {
+          const btn = document.createElement("button");
+          btn.className = "btn-approve";
+          btn.textContent = "موافقة على الملف";
+          btn.onclick = () => approveFile(file.id);
+          row.appendChild(btn);
+        }
+
+        listEl.appendChild(row);
+      });
+    }
+
+    function showLogin() {
+      sessionStorage.removeItem(STORAGE_KEY_SESSION);
+      document.getElementById("adminDashboard").style.display = "none";
+      document.getElementById("loginScreen").style.display = "block";
+      document.getElementById("loginForm").reset();
+      document.getElementById("loginError").textContent = "";
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const u = document.getElementById("username").value.trim();
+      const p = document.getElementById("password").value;
+      const errEl = document.getElementById("loginError");
+
+      const acc = ACCOUNTS[u];
+      if (!acc || acc.pass !== p) {
+        errEl.textContent = "اسم الحساب أو كلمة المرور غير صحيحة.";
+        return;
+      }
+
+      const session = { username: u, role: acc.role, label: acc.label };
+      sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(session));
+      renderDashboard(session);
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", showLogin);
+
+    // تحقق تلقائي عند فتح الصفحة
+    const existingSession = JSON.parse(sessionStorage.getItem(STORAGE_KEY_SESSION) || "null");
+    if (existingSession && ACCOUNTS[existingSession.username]) {
+      renderDashboard(existingSession);
+    } else {
+      showLogin();
+    }
+  </script>
+</body>
+</html>
